@@ -47,7 +47,7 @@ Alternatively you can select from community AMI to select a Machine with pre-ins
   **sudo apt-get install -y liblapack-dev**<br />
   **sudo apt-get install -y libblas-dev**<br />
 
-2. Install Cuda by running these commands.**THIS IS THE MOST TIME CONSUMING STEP- USE COMMUNITY AMI TO AVOID THIS (Steps at last)** Install latest cuda- cuda-repo-ubuntu1404_7.5-18_amd64.deb ( This is cuda 7.5)<br />
+2. Install Cuda by running these commands.**THIS IS THE MOST TIME CONSUMING STEP- USE COMMUNITY AMI TO AVOID THIS (Steps at last - USING PREINSTALLED AMI)** Install latest cuda- cuda-repo-ubuntu1404_7.5-18_amd64.deb ( This is cuda 7.5)<br />
   **wget http://developer.download.nvidia.com/compute/cuda/repos/ubuntu1404/x86_64/cuda-repo-ubuntu1404_7.5-18_amd64.deb**<br />
   **sudo dpkg -i cuda-repo-ubuntu1404_7.5-18_amd64.deb**<br />
   **sudo apt-get update**<br />
@@ -176,7 +176,7 @@ Use S3 to temporarily save your models when using Spot Instances<br />
   **aws s3 cp s3://apoorvfirstbucket/DeepLearning/SpatialTransformerNetwork/CatDog/TestTransfer TestTransfer --recursive**<br />
   **aws s3 cp  s3://apoorvfirstbucket/DeepLearning/SpatialTransformerNetwork/CatDog/test.txt test.txt**<br />
   
-## USING Preinstalled AMI<br />
+## IMPORTANT - USING Preinstalled AMI TO AVOID THEANO INSTALLATION TIME & EFFORTS<br />
 1. When selecting an AMI, go to Commnity AMI and search for theano or deep learning.<br />
 2. Select one of the AMI's and proceed.<br />
 3. I usually select the AMI with theano and cuda 7 installed and install Lasagne myself.<br />
