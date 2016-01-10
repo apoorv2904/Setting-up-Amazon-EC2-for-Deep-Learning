@@ -162,11 +162,11 @@ Use S3 to temporarily save your models when using Spot Instances
   You can connect to any bucket in any region.
 
 4. Transfer file/folder to S3
-  # Make test folder
+  ####Make test folder
   mkdir TestTransfer
   aws s3 cp TestTransfer s3://apoorvfirstbucket/DeepLearning/SpatialTransformerNetwork/CatDog/TestTransfer --recursive
   
-  # Create a test file
+  ####Create a test file
   vim test.txt
   aws s3 cp test.txt s3://apoorvfirstbucket/DeepLearning/SpatialTransformerNetwork/CatDog/test.txt 
 
