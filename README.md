@@ -13,7 +13,8 @@ https://aws.amazon.com/console/<br />
   2. Spot Instance - These are machines which are available for bidding. The advantage is that this costs around $0.07- $0.1 an hour depending upon the region ( will tell about the regions later ) but the machine can be taken away at a 2 min notice when someone outbids you so the work has to be saved periodically to ensure no loss. <br />
 We will be using these Spot instances as a part of the guidelines and will look at how to save the files on a Amazon S3 Machine.<br />
 
-3. AMI - Suppose you install a bunch of softwares on an EC2 instance and use it for a couple of hours and then terminate the instance. It is painful to install these softwares everytime you run the system. So Amazon offers you to save the image of the machine which can boot up with the sofwares installed but this will cost some additional money. Alternatively you can select from community AMI to select a Machine with pre-installed softwares to save the money and hassle.
+3. AMI - Suppose you install a bunch of softwares on an EC2 instance and use it for a couple of hours and then terminate the instance. It is painful to install these softwares everytime you run the system. So Amazon offers you to save the image of the machine which can boot up with the sofwares installed but this will cost some additional money.<br />
+Alternatively you can select from community AMI to select a Machine with pre-installed softwares to save the money and hassle.
 
 4. Regions - Amazon offers its services in different regions and data within a region is duplicated to ensure robustness. AMI discussed above are restricted to a region and an AMI in one region might not be available in another.
 
@@ -26,11 +27,11 @@ We will be using these Spot instances as a part of the guidelines and will look 
 5. From the available options go GPU g2.2xlarge instance. (This will cost you money. Small amount :) )
 6. Press Next and Enter your bidding price based on the history suggested. At the time of writing this current price is around $0.07/hour so I am going to bid $0.1/hour to have a safety margin.
 7. Press Review and Launch. Press Launch. You will come to a screen where it will ask for a Key-Pair. If you are using it for the first time, then please create a new key-pair and make sure you keep it safely. If lost it cannot be retrieved later on.
-8. If on Linux use this command to connect to EC2 instace
-  ssh -i EC2KeyPair.pem ubuntu@<your instance ip address>
-  If on windows use putty to connect to the instance. The instructions can be found here.
-  http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/putty.html
-  In nutshell, do the following.
+8. If on Linux use this command to connect to EC2 instace<br />
+  **ssh -i EC2KeyPair.pem ubuntu@<your instance ip address>**<br />
+  If on windows use putty to connect to the instance. The instructions can be found here.<br />
+  http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/putty.html<br />
+  In nutshell, do the following.<br />
   1. Open PuTTYgen
   2. Click load and load <key>.pem 
   3. Press save private key
@@ -39,157 +40,158 @@ We will be using these Spot instances as a part of the guidelines and will look 
   6. Now SSH -> Auth Tab and browse private key. and press open. You will be connected to the Amazon EC2 Server
 
 ### Installing Theano and other libraries.
-1. Run these commands to install basic libraries
-  **sudo apt-get update**
-  **sudo apt-get -y dist-upgrade**
-  **sudo apt-get install -y gcc g++ gfortran build-essential git wget linux-image-generic libopenblas-dev python-dev python-pip python-nose python-numpy python-scipy**
-  **sudo apt-get install -y liblapack-dev**
-  **sudo apt-get install -y libblas-dev**
+1. Run these commands to install basic libraries<br />
+  **sudo apt-get update**<br />
+  **sudo apt-get -y dist-upgrade**<br />
+  **sudo apt-get install -y gcc g++ gfortran build-essential git wget linux-image-generic libopenblas-dev python-dev python-pip python-nose python-numpy python-scipy**<br />
+  **sudo apt-get install -y liblapack-dev**<br />
+  **sudo apt-get install -y libblas-dev**<br />
 
-2. Install Cuda Running these commands. Install latest cuda- cuda-repo-ubuntu1404_7.5-18_amd64.deb ( This is cuda 7.5)
-  **wget http://developer.download.nvidia.com/compute/cuda/repos/ubuntu1404/x86_64/cuda-repo-ubuntu1404_7.5-18_amd64.deb**
-  **sudo dpkg -i cuda-repo-ubuntu1404_7.5-18_amd64.deb**
-  **sudo apt-get update**
-  **sudo apt-get install cuda**
+2. Install Cuda Running these commands. Install latest cuda- cuda-repo-ubuntu1404_7.5-18_amd64.deb ( This is cuda 7.5)<br />
+  **wget http://developer.download.nvidia.com/compute/cuda/repos/ubuntu1404/x86_64/cuda-repo-ubuntu1404_7.5-18_amd64.deb**<br />
+  **sudo dpkg -i cuda-repo-ubuntu1404_7.5-18_amd64.deb**<br />
+  **sudo apt-get update**<br />
+  **sudo apt-get install cuda**<br />
 
-3. Reboot and reconnect
-  **sudo reboot**
+3. Reboot and reconnect<br />
+  **sudo reboot**<br />
   
-4. Add paths
-  **CUDA_ROOT=`find /usr/local/ -type d -name "cuda-[0-9]\.[0-9]" -print`**
-  The above command will find the cuda path and for cuda-7.5 it should be */usr/local/cuda-7.5
-  Run following commands to add paths to the library. Many issues that usually come are due to wrong path settings. Make sure you import path in the environment. 
+4. Add paths<br />
+  **CUDA_ROOT=`find /usr/local/ -type d -name "cuda-[0-9]\.[0-9]" -print`**<br />
+  The above command will find the cuda path and for cuda-7.5 it should be */usr/local/cuda-7.5<br />
+  Run following commands to add paths to the library. Many issues that usually come are due to wrong path settings. Make sure you import path in the environment. <br />
   
-  **export LD_LIBRARY_PATH=${CUDA_ROOT}/lib64:${LD_LIBRARY_PATH} **
-  **export PATH=${CUDA_ROOT}/bin:${PATH}**
-  **echo "PATH=${CUDA_ROOT}/bin:${PATH}" >> .bashrc**
-  **echo "export LD_LIBRARY_PATH=${CUDA_ROOT}/lib64:${LD_LIBRARY_PATH}" >> .bashrc**
-  **source ~/.bashrc**
+  **export LD_LIBRARY_PATH=${CUDA_ROOT}/lib64:${LD_LIBRARY_PATH} **<br />
+  **export PATH=${CUDA_ROOT}/bin:${PATH}**<br />
+  **echo "PATH=${CUDA_ROOT}/bin:${PATH}" >> .bashrc**<br />
+  **echo "export LD_LIBRARY_PATH=${CUDA_ROOT}/lib64:${LD_LIBRARY_PATH}" >> .bashrc**<br />
+  **source ~/.bashrc**<br />
 
-5. Verify Cuda is working. In the commands set right version for cuda. Here it was 7.5
+5. Verify Cuda is working. In the commands set right version for cuda. Here it was 7.5<br />
   
-  **cuda-install-samples-7.5.sh  ~**
-  **cd ~/NVIDIA_CUDA-7.5_Samples**
-  **cd 1_Utilities/deviceQuery**
-  **make**
-  **./deviceQuery**
-  
-6. Go to home folder and install sklearn and nolearn
-  **cd ~**
-  **sudo pip install scikit-learn nolearn**
-  
-7. Install cudamat
-  **git clone https://github.com/cudamat/cudamat**
-  **cd cudamat**
-  **pip install --user .**
-  
-8. Install theano
-  **sudo pip install -r https://raw.githubusercontent.com/Lasagne/Lasagne/master/requirements.txt**
+  **cuda-install-samples-7.5.sh  ~**<br />
+  **cd ~/NVIDIA_CUDA-7.5_Samples**<br />
+  **cd 1_Utilities/deviceQuery**<br />
+  **make**<br />
+  **./deviceQuery**<br />
 
-9. Configure Theano - Right now if you run python and import theano it will not use GPU. In order to use GPU we need to configure theanorc
-  Create file ~/.theanorc and copy
+6. Go to home folder and install sklearn and nolearn<br />
+  **cd ~**<br />
+  **sudo pip install scikit-learn nolearn**<br />
   
-  **[global]**
-  **floatX = float32**
-  **device = gpu0**
+7. Install cudamat<br />
+  **git clone https://github.com/cudamat/cudamat**<br />
+  **cd cudamat**<br />
+  **pip install --user .**<br />
   
-  **[nvcc]**
-  **fastmath = True**
-10. Verify if GPU is used. Open Python and import theano, if GPU is being used it will print the GPU information.
+8. Install theano<br />
+  **sudo pip install -r https://raw.githubusercontent.com/Lasagne/Lasagne/master/requirements.txt**<br />
+
+9. Configure Theano - Right now if you run python and import theano it will not use GPU. In order to use GPU we need to configure theanorc<br />
+  Create file ~/.theanorc and copy<br />
+  
+  **[global]**<br />
+  **floatX = float32**<br />
+  **device = gpu0**<br />
+  <br />
+  **[nvcc]**<br />
+  **fastmath = True**<br />
+
+10. Verify if GPU is used. Open Python and import theano, if GPU is being used it will print the GPU information.<br />
 
 
 ### Install Lasagne and skimage
-1. Intall Lasagne 
-  **sudo pip install Lasagne==0.1**
-  **sudo apt-get update**
-  **sudo pip install scikit-learn**
-  **sudo apt-get install python-matplotlib**
-  **sudo pip install scikit-image**
+1. Intall Lasagne <br />
+  **sudo pip install Lasagne==0.1**<br />
+  **sudo apt-get update**<br />
+  **sudo pip install scikit-learn**<br />
+  **sudo apt-get install python-matplotlib**<br />
+  **sudo pip install scikit-image**<br />
 
-2. Install Cudadnn after making an account at nvidia
-  https://developer.nvidia.com/cudnn
+2. Install Cudadnn after making an account at nvidia<br />
+  https://developer.nvidia.com/cudnn<br />
   1. Register and click download
   2. Right cuDNN v4 Library for Linux click and click copy link address
   3. Now there are 2 options either download file to your local machine and then upload to S3 and download from S3 and run next commands or to download directly to the ec2 machine follow the steps in Download dataset from kaggle (next section long term helpful ) and use the cookies.txt generated in the cudnn download link page
-  4. copy cookies.txt (on nvdia link page ) to the ec2 machine and run
+  4. copy cookies.txt (on nvdia link page ) to the ec2 machine and run<br />
     
-    **mkdir data**
-    **wget -x --load-cookies cookies.txt -P data -nH --cut-dirs=5 https://developer.nvidia.com/rdp/assets/cudnn-70-linux-x64-v40**
-    **cd data**
-    **mv cudnn-70-linux-x64-v40 cudnn-70-linux-x64-v40.tar.gz**
-    **tar -xvzf cudnn-70-linux-x64-v40.tar.gz**
-    **CUDA_ROOT=`find /usr/local/ -type d -name "cuda-[0-9]\.[0-9]" -print`**
-    **cd cuda/include/**
-    **sudo cp `ls *.h` "$CUDA_ROOT"/include/**
-    **cd ../lib64/**
-    **sudo cp `ls *`  "$CUDA_ROOT"/lib64/**
-    **export LD_LIBRARY_PATH=${CUDA_ROOT}/lib64:${LD_LIBRARY_PATH}**
-    **export PATH=${CUDA_ROOT}/bin:${PATH}**
+    **mkdir data**<br />
+    **wget -x --load-cookies cookies.txt -P data -nH --cut-dirs=5 https://developer.nvidia.com/rdp/assets/cudnn-70-linux-x64-v40**<br />
+    **cd data**<br />
+    **mv cudnn-70-linux-x64-v40 cudnn-70-linux-x64-v40.tar.gz**<br />
+    **tar -xvzf cudnn-70-linux-x64-v40.tar.gz**<br />
+    **CUDA_ROOT=`find /usr/local/ -type d -name "cuda-[0-9]\.[0-9]" -print`**<br />
+    **cd cuda/include/**<br />
+    **sudo cp `ls *.h` "$CUDA_ROOT"/include/**<br />
+    **cd ../lib64/**<br />
+    **sudo cp `ls *`  "$CUDA_ROOT"/lib64/**<br />
+    **export LD_LIBRARY_PATH=${CUDA_ROOT}/lib64:${LD_LIBRARY_PATH}**<br />
+    **export PATH=${CUDA_ROOT}/bin:${PATH}**<br />
   
   5. For faster use in future upload cudnn-70-linux-x64-v40.tar.gz to S3 bucket and retrieve from there to use.
-  6. At times when lasagne gives some error, one of the three commands solves the purpose
-    **sudo pip install -r https://raw.githubusercontent.com/dnouri/kfkd-tutorial/master/requirements.txt**
-    **sudo pip install -r https://raw.githubusercontent.com/dnouri/nolearn/master/requirements.txt**
-    **sudo pip install -r https://raw.githubusercontent.com/Lasagne/Lasagne/master/requirements.txt**
+  6. At times when lasagne gives some error, one of the three commands solves the purpose<br />
+    **sudo pip install -r https://raw.githubusercontent.com/dnouri/kfkd-tutorial/master/requirements.txt**<br />
+    **sudo pip install -r https://raw.githubusercontent.com/dnouri/nolearn/master/requirements.txt**<br />
+    **sudo pip install -r https://raw.githubusercontent.com/Lasagne/Lasagne/master/requirements.txt**<br />
 
-### Download Dataset from Kaggle
-Steps :-
+### Download Dataset from Kaggle<br />
+Steps :-<br />
 1. Export your cookies from your browser, when you are  logged in at kaggle and put your cookies.txt on your server. Then run:
-  mkdir data
-  **wget -x --load-cookies cookies.txt -P data -nH --cut-dirs=5 http://www.kaggle.com/c/dogs-vs-cats/download/test1.zip**
+  mkdir data<br />
+  **wget -x --load-cookies cookies.txt -P data -nH --cut-dirs=5 http://www.kaggle.com/c/dogs-vs-cats/download/test1.zip**<br />
   
-## S3 Setup for persistent storage
-Use S3 to temporarily save your models when using Spot Instances
+## S3 Setup for persistent storage<br />
+Use S3 to temporarily save your models when using Spot Instances<br />
 
-###Install awscli to move files to and from S3
+###Install awscli to move files to and from S3<br />
 
-1. Create S3 bucket
-  https://www.youtube.com/watch?v=wODEO2Tvmik
-2. Set up Access Key
-  Read How to Retrieve Root Access Keys (first one)
-  http://www.cloudberrylab.com/blog/how-to-find-your-aws-access-key-id-and-secret-access-key-and-register-with-cloudberry-s3-explorer/
-3. On on your ec2 instance, Install awscli and configure it
-  **sudo apt-get install awscli**
-  **aws configure**
+1. Create S3 bucket<br />
+  https://www.youtube.com/watch?v=wODEO2Tvmik<br />
+2. Set up Access Key<br />
+  Read How to Retrieve Root Access Keys (first one)<br />
+  http://www.cloudberrylab.com/blog/how-to-find-your-aws-access-key-id-and-secret-access-key-and-register-with-cloudberry-s3-explorer/ <br />
+3. On on your ec2 instance, Install awscli and configure it<br />
+  **sudo apt-get install awscli**<br />
+  **aws configure**<br />
   
-  Configure will ask 4 questions
-  AWS Access Key ID [None]: AKIAIOSFODNN7EXAMPLE
-  AWS Secret Access Key [None]: wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY
-  Default region name [None]: us-west-2
-  Default output format [None]: ENTER
+  Configure will ask 4 questions<br />
+  AWS Access Key ID [None]: AKIAIOSFODNN7EXAMPLE<br />
+  AWS Secret Access Key [None]: wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY<br />
+  Default region name [None]: us-west-2<br />
+  Default output format [None]: ENTER<br />
   
-  In third question you can see the region by having a look at region properties. For N.California bucket it is us-west-1
-  You can connect to any bucket in any region.
+  In third question you can see the region by having a look at region properties. For N.California bucket it is us-west-1<br />
+  You can connect to any bucket in any region.<br />
 
-4. Transfer file/folder to S3
-  ####Make test folder
-  **mkdir TestTransfer**
-  **aws s3 cp TestTransfer s3://apoorvfirstbucket/DeepLearning/SpatialTransformerNetwork/CatDog/TestTransfer --recursive**
+4. Transfer file/folder to S3<br />
+  ####Make test folder<br />
+  **mkdir TestTransfer**<br />
+  **aws s3 cp TestTransfer s3://apoorvfirstbucket/DeepLearning/SpatialTransformerNetwork/CatDog/TestTransfer --recursive**<br />
   
-  ####Create a test file
-  **vim test.txt
-  **aws s3 cp test.txt s3://apoorvfirstbucket/DeepLearning/SpatialTransformerNetwork/CatDog/test.txt **
+  ####Create a test file<br />
+  **vim test.txt<br />
+  **aws s3 cp test.txt s3://apoorvfirstbucket/DeepLearning/SpatialTransformerNetwork/CatDog/test.txt **<br />
 
-5. Retrieve from file/folder from S3
-  **aws s3 cp s3://apoorvfirstbucket/DeepLearning/SpatialTransformerNetwork/CatDog/TestTransfer TestTransfer --recursive**
-  **aws s3 cp  s3://apoorvfirstbucket/DeepLearning/SpatialTransformerNetwork/CatDog/test.txt test.txt**
+5. Retrieve from file/folder from S3<br />
+  **aws s3 cp s3://apoorvfirstbucket/DeepLearning/SpatialTransformerNetwork/CatDog/TestTransfer TestTransfer --recursive**<br />
+  **aws s3 cp  s3://apoorvfirstbucket/DeepLearning/SpatialTransformerNetwork/CatDog/test.txt test.txt**<br />
   
 
   
 ## OPTIONAL DEEP LEARNING TUTORIAL
-A. Install Deep Learning Tutorial to playaround.
-  **cd ~**
-  **git clone https://github.com/lisa-lab/DeepLearningTutorials.git**
+A. Install Deep Learning Tutorial to playaround.<br />
+  **cd ~**<br />
+  **git clone https://github.com/lisa-lab/DeepLearningTutorials.git**<br />
 
-B. Install datasets and play around
-  **cd DeepLearningTutorials/data/**
-  **chmod +x download.sh**
-  **./download.sh**
+B. Install datasets and play around<br />
+  **cd DeepLearningTutorials/data/**<br />
+  **chmod +x download.sh**<br />
+  **./download.sh**<br />
 
-C. Run convolutional_mlp.py
-  **cd ../code/**
-  **time python convolutional_mlp.py**
+C. Run convolutional_mlp.py<br />
+  **cd ../code/**<br />
+  **time python convolutional_mlp.py**<br />
   
-  It takes around 39-40 minutes to run on GPU instance 
+  It takes around 39-40 minutes to run on GPU instance <br />
 
   
