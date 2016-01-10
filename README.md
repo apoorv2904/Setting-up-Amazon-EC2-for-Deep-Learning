@@ -1,16 +1,17 @@
 # Setting-up-Amazon-EC2-for-Deep-Learning
 Instructions to install cuda, theano, nolearn, sklearn, skimage, lasagne, cudamat for Deep Learning
 
-Setting up Amazon EC2 for deep learning can be a very painful task and can take a while to just setup Theano and other libraries to start with the actual interesting work.
-The following steps can help reduce the time and efforts required to get started on Amazon EC2.
+Setting up Amazon EC2 for deep learning can be a very painful task and can take a while to just setup Theano and other libraries to start with the actual interesting work.<br />
+The following steps can help reduce the time and efforts required to get started on Amazon EC2.<br /><br />
 
 ## Some Backgound
-1. Go to Amazon.com and signup for Amazon Web Services.
-https://aws.amazon.com/console/
+1. Go to Amazon.com and signup for Amazon Web Services.<br />
+https://aws.amazon.com/console/<br />
 
-2. Amazon EC2 is the cloud computing resource that we will be primarily using to run the code on the cloud. Amazon offers 2 type of instances :- 
+2. Amazon EC2 is the cloud computing resource that we will be primarily using to run the code on the cloud. Amazon offers 2 type of instances :- <br />
   1. Reserved Instance - This as the name says will be allocated to you at a fixed price/hour. A Gpu g2.2x large instance which we will use typicall costs $0.65 an hour.
-  2. Spot Instance - These are machines which are available for bidding. The advantage is that this costs around $0.07- $0.1 an hour depending upon the region ( will tell about the regions later ) but the machine can be taken away at a 2 min notice when someone outbids you so the work has to be saved periodically to ensure no loss. We will be using these Spot instances as a part of the guidelines and will look at how to save the files on a Amazon S3 Machine.
+  2. Spot Instance - These are machines which are available for bidding. The advantage is that this costs around $0.07- $0.1 an hour depending upon the region ( will tell about the regions later ) but the machine can be taken away at a 2 min notice when someone outbids you so the work has to be saved periodically to ensure no loss. <br />
+We will be using these Spot instances as a part of the guidelines and will look at how to save the files on a Amazon S3 Machine.<br />
 
 3. AMI - Suppose you install a bunch of softwares on an EC2 instance and use it for a couple of hours and then terminate the instance. It is painful to install these softwares everytime you run the system. So Amazon offers you to save the image of the machine which can boot up with the sofwares installed but this will cost some additional money. Alternatively you can select from community AMI to select a Machine with pre-installed softwares to save the money and hassle.
 
