@@ -4,17 +4,17 @@ Instructions to install cuda, theano, nolearn, sklearn, skimage, lasagne, cudama
 Setting up Amazon EC2 for deep learning can be a very painful task and can take a while to just setup Theano and other libraries to start with the actual interesting work.<br />
 The following steps can help reduce the time and efforts required to get started on Amazon EC2.<br /><br />
 
-## Some Backgound
+## Some Background
 1. Go to Amazon.com and signup for Amazon Web Services.<br />
 https://aws.amazon.com/console/<br />
 
 2. Amazon EC2 is the cloud computing resource that we will be primarily using to run the code on the cloud. Amazon offers 2 type of instances :- <br />
-  1. Reserved Instance - This as the name says will be allocated to you at a fixed price/hour. A Gpu g2.2x large instance which we will use typicall costs $0.65 an hour.
+  1. Reserved Instance - This as the name says will be allocated to you at a fixed price/hour. A Gpu g2.2x large instance which we will use typically costs $0.65 an hour.
   2. Spot Instance - These are machines which are available for bidding. The advantage is that this costs around $0.07- $0.1 an hour depending upon the region ( will tell about the regions later ) but the machine can be taken away at a 2 min notice when someone outbids you so the work has to be saved periodically to ensure no loss. <br />
 We will be using these Spot instances as a part of the guidelines and will look at how to save the files on a Amazon S3 Machine.<br />
 
-3. AMI - Suppose you install a bunch of softwares on an EC2 instance and use it for a couple of hours and then terminate the instance. It is painful to install these softwares everytime you run the system. So Amazon offers you to save the image of the machine which can boot up with the sofwares installed but this will cost some additional money.<br />
-Alternatively you can select from community AMI to select a Machine with pre-installed softwares to save the money and hassle.
+3. AMI - Suppose you install a bunch of software on an EC2 instance and use it for a couple of hours and then terminate the instance. It is painful to install these software every time you run the system. So Amazon offers you to save the image of the machine which can boot up with the software installed but this will cost some additional money.<br />
+Alternatively you can select from community AMI to select a Machine with pre-installed software to save the money and hassle.
 
 4. Regions - Amazon offers its services in different regions and data within a region is duplicated to ensure robustness. AMI discussed above are restricted to a region and an AMI in one region might not be available in another.
 
@@ -27,7 +27,7 @@ Alternatively you can select from community AMI to select a Machine with pre-ins
 5. From the available options go GPU g2.2xlarge instance. (This will cost you money. Small amount :) )
 6. Press Next and Enter your bidding price based on the history suggested. At the time of writing this current price is around $0.07/hour so I am going to bid $0.1/hour to have a safety margin.
 7. Press Review and Launch. Press Launch. You will come to a screen where it will ask for a Key-Pair. If you are using it for the first time, then please create a new key-pair and make sure you keep it safely. If lost it cannot be retrieved later on.
-8. If on Linux use this command to connect to EC2 instace<br />
+8. If on Linux use this command to connect to EC2 instance<br />
   **ssh -i EC2KeyPair.pem ubuntu@[your instance ip address]**<br />
   If on windows use putty to connect to the instance. The instructions can be found here.<br />
   http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/putty.html<br />
@@ -47,7 +47,7 @@ Alternatively you can select from community AMI to select a Machine with pre-ins
   **sudo apt-get install -y liblapack-dev**<br />
   **sudo apt-get install -y libblas-dev**<br />
 
-2. Install Cuda Running these commands. Install latest cuda- cuda-repo-ubuntu1404_7.5-18_amd64.deb ( This is cuda 7.5)<br />
+2. Install Cuda by running these commands. Install latest cuda- cuda-repo-ubuntu1404_7.5-18_amd64.deb ( This is cuda 7.5)<br />
   **wget http://developer.download.nvidia.com/compute/cuda/repos/ubuntu1404/x86_64/cuda-repo-ubuntu1404_7.5-18_amd64.deb**<br />
   **sudo dpkg -i cuda-repo-ubuntu1404_7.5-18_amd64.deb**<br />
   **sudo apt-get update**<br />
@@ -136,7 +136,7 @@ Alternatively you can select from community AMI to select a Machine with pre-ins
 
 ### Download Dataset from Kaggle<br />
 Steps :-<br />
-1. Export your cookies from your browser, when you are  logged in at kaggle and put your cookies.txt on your server. Then run:
+1. Export your cookies from your browser, when you are logged in at kaggle and put your cookies.txt on your server. Then run:
   mkdir data<br />
   **wget -x --load-cookies cookies.txt -P data -nH --cut-dirs=5 http://www.kaggle.com/c/dogs-vs-cats/download/test1.zip**<br />
   
