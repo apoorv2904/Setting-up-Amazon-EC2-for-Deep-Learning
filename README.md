@@ -4,7 +4,7 @@ Instructions to install cuda, theano, nolearn, sklearn, skimage, lasagne, cudama
 Setting up Amazon EC2 for deep learning can be a very painful task and can take a while to just setup Theano and other libraries to start with the actual interesting work.
 The following steps can help reduce the time and efforts required to get started on Amazon EC2.
 
-* Some Backgound
+## Some Backgound
 1. Go to Amazon.com and signup for Amazon Web Services.
 https://aws.amazon.com/console/
 
