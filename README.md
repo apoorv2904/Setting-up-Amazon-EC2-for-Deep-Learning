@@ -16,8 +16,8 @@ https://aws.amazon.com/console/
 
 4. Regions - Amazon offers its services in different regions and data within a region is duplicated to ensure robustness. AMI discussed above are restricted to a region and an AMI in one region might not be available in another.
 
-* Setting up Instructions.
-** Connecting to Amazon EC2 instance.
+## Setting up Instructions.
+### Connecting to Amazon EC2 instance.
 1. Log in to Amazon Console.
 2. Select a region from top right. For this tutorial we will use N.California.
 3. Go to Services -> EC2 -> Spot Requests ( Under Instances. You can have a look at the pricing history to get a guide on the bid )
@@ -37,7 +37,7 @@ https://aws.amazon.com/console/
   5. In host enter ubuntu@DNS name. This can be seen by cliking the instance in AWS services and copying Public DNS column
   6. Now SSH -> Auth Tab and browse private key. and press open. You will be connected to the Amazon EC2 Server
 
-** Installing Theano and other libraries.
+### Installing Theano and other libraries.
 1. Run these commands to install basic libraries
   sudo apt-get update
   sudo apt-get -y dist-upgrade
@@ -97,29 +97,8 @@ https://aws.amazon.com/console/
 
 10. Verify if GPU is used. Open Python and import theano, if GPU is being used it will print the GPU information.
 
-** OPTIONAL DEEP LEARNING TUTORIAL
-A. Install Deep Learning Tutorial to playaround.
-  cd ~
-  git clone https://github.com/lisa-lab/DeepLearningTutorials.git
 
-B. Install datasets and play around
-  cd DeepLearningTutorials/data/
-  chmod +x download.sh
-  ./download.sh
-
-C. Run convolutional_mlp.py
-  cd ../code/
-  time python convolutional_mlp.py
-  
-  It takes around 39-40 minutes to run on GPU instance 
-
-*** Download Dataset from Kaggle
-Steps :-
-1. Export your cookies from your browser, when you are  logged in at kaggle and put your cookies.txt on your server. Then run:
-  mkdir data
-  wget -x --load-cookies cookies.txt -P data -nH --cut-dirs=5 http://www.kaggle.com/c/dogs-vs-cats/download/test1.zip
-
-** Install Lasagne and skimage
+### Install Lasagne and skimage
 1. Intall Lasagne 
   sudo pip install Lasagne==0.1
   sudo apt-get update
@@ -131,7 +110,7 @@ Steps :-
   https://developer.nvidia.com/cudnn
   1. Register and click download
   2. Right cuDNN v4 Library for Linux click and click copy link address
-  3. Now there are 2 options either download file to your local machine and then upload to S3 and download from S3 and run next commands or to download directly to the ec2 machine follow the steps Download dataset from kaggle and use the cookies.txt generated in the cudnn download link page
+  3. Now there are 2 options either download file to your local machine and then upload to S3 and download from S3 and run next commands or to download directly to the ec2 machine follow the steps in Download dataset from kaggle (next section long term helpful ) and use the cookies.txt generated in the cudnn download link page
   4. copy cookies.txt (on nvdia link page ) to the ec2 machine and run
     
     mkdir data
@@ -152,8 +131,17 @@ Steps :-
     sudo pip install -r https://raw.githubusercontent.com/dnouri/kfkd-tutorial/master/requirements.txt
     sudo pip install -r https://raw.githubusercontent.com/dnouri/nolearn/master/requirements.txt
     sudo pip install -r https://raw.githubusercontent.com/Lasagne/Lasagne/master/requirements.txt
+
+### Download Dataset from Kaggle
+Steps :-
+1. Export your cookies from your browser, when you are  logged in at kaggle and put your cookies.txt on your server. Then run:
+  mkdir data
+  wget -x --load-cookies cookies.txt -P data -nH --cut-dirs=5 http://www.kaggle.com/c/dogs-vs-cats/download/test1.zip
   
-** Install awscli to move files to and from S3
+## S3 Setup for persistent storage
+Use S3 to temporarily save your models when using Spot Instances
+
+###Install awscli to move files to and from S3
 
 1. Create S3 bucket
   https://www.youtube.com/watch?v=wODEO2Tvmik
@@ -188,5 +176,20 @@ Steps :-
   
 
   
+## OPTIONAL DEEP LEARNING TUTORIAL
+A. Install Deep Learning Tutorial to playaround.
+  cd ~
+  git clone https://github.com/lisa-lab/DeepLearningTutorials.git
+
+B. Install datasets and play around
+  cd DeepLearningTutorials/data/
+  chmod +x download.sh
+  ./download.sh
+
+C. Run convolutional_mlp.py
+  cd ../code/
+  time python convolutional_mlp.py
+  
+  It takes around 39-40 minutes to run on GPU instance 
 
   
