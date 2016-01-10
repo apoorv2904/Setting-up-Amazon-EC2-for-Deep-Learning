@@ -22,7 +22,7 @@ https://aws.amazon.com/console/
 2. Select a region from top right. For this tutorial we will use N.California.
 3. Go to Services -> EC2 -> Spot Requests ( Under Instances. You can have a look at the pricing history to get a guide on the bid )
 4. Choose an AMI. To show a complete setup, I will go with AMI Ubuntu Server 14.04 LTS (HVM), SSD Volume Type. ( I will recommend you to try out complete installation once. Later you can go with the AMI I have mentioned.)
-5. From the available options go GPU g2.2xlarge instance. (This will cost you money. Small amout :) )
+5. From the available options go GPU g2.2xlarge instance. (This will cost you money. Small amount :) )
 6. Press Next and Enter your bidding price based on the history suggested. At the time of writing this current price is around $0.07/hour so I am going to bid $0.1/hour to have a safety margin.
 7. Press Review and Launch. Press Launch. You will come to a screen where it will ask for a Key-Pair. If you are using it for the first time, then please create a new key-pair and make sure you keep it safely. If lost it cannot be retrieved later on.
 8. If on Linux use this command to connect to EC2 instace
@@ -39,72 +39,71 @@ https://aws.amazon.com/console/
 
 ### Installing Theano and other libraries.
 1. Run these commands to install basic libraries
-  sudo apt-get update
-  sudo apt-get -y dist-upgrade
-  sudo apt-get install -y gcc g++ gfortran build-essential git wget linux-image-generic libopenblas-dev python-dev python-pip python-nose python-numpy python-scipy
-  sudo apt-get install -y liblapack-dev
-  sudo apt-get install -y libblas-dev
+  *sudo apt-get update*
+  *sudo apt-get -y dist-upgrade*
+  *sudo apt-get install -y gcc g++ gfortran build-essential git wget linux-image-generic libopenblas-dev python-dev python-pip python-nose python-numpy python-scipy*
+  *sudo apt-get install -y liblapack-dev*
+  *sudo apt-get install -y libblas-dev*
 
 2. Install Cuda Running these commands. Install latest cuda- cuda-repo-ubuntu1404_7.5-18_amd64.deb ( This is cuda 7.5)
-  wget http://developer.download.nvidia.com/compute/cuda/repos/ubuntu1404/x86_64/cuda-repo-ubuntu1404_7.5-18_amd64.deb
-  sudo dpkg -i cuda-repo-ubuntu1404_7.5-18_amd64.deb
-  sudo apt-get update
-  sudo apt-get install cuda
+  *wget http://developer.download.nvidia.com/compute/cuda/repos/ubuntu1404/x86_64/cuda-repo-ubuntu1404_7.5-18_amd64.deb*
+  *sudo dpkg -i cuda-repo-ubuntu1404_7.5-18_amd64.deb*
+  *sudo apt-get update*
+  *sudo apt-get install cuda*
 
 3. Reboot and reconnect
-  sudo reboot
+  *sudo reboot*
   
 4. Add paths
-  CUDA_ROOT=`find /usr/local/ -type d -name "cuda-[0-9]\.[0-9]" -print`
+  *CUDA_ROOT=`find /usr/local/ -type d -name "cuda-[0-9]\.[0-9]" -print`*
   The above command will find the cuda path and for cuda-7.5 it should be */usr/local/cuda-7.5
   Run following commands to add paths to the library. Many issues that usually come are due to wrong path settings. Make sure you import path in the environment. 
   
-  export LD_LIBRARY_PATH=${CUDA_ROOT}/lib64:${LD_LIBRARY_PATH} 
-  export PATH=${CUDA_ROOT}/bin:${PATH} 
-  echo "PATH=${CUDA_ROOT}/bin:${PATH}" >> .bashrc
-  echo "export LD_LIBRARY_PATH=${CUDA_ROOT}/lib64:${LD_LIBRARY_PATH}" >> .bashrc
-  source ~/.bashrc
+  *export LD_LIBRARY_PATH=${CUDA_ROOT}/lib64:${LD_LIBRARY_PATH} *
+  *export PATH=${CUDA_ROOT}/bin:${PATH}*
+  *echo "PATH=${CUDA_ROOT}/bin:${PATH}" >> .bashrc*
+  *echo "export LD_LIBRARY_PATH=${CUDA_ROOT}/lib64:${LD_LIBRARY_PATH}" >> .bashrc*
+  *source ~/.bashrc*
 
 5. Verify Cuda is working. In the commands set right version for cuda. Here it was 7.5
   
-  cuda-install-samples-7.5.sh  ~ 
-  cd ~/NVIDIA_CUDA-7.5_Samples 
-  cd 1_Utilities/deviceQuery 
-  make
-  ./deviceQuery
+  *cuda-install-samples-7.5.sh  ~* 
+  *cd ~/NVIDIA_CUDA-7.5_Samples* 
+  *cd 1_Utilities/deviceQuery*
+  *make*
+  *./deviceQuery*
   
 6. Go to home folder and install sklearn and nolearn
-  cd ~
-  sudo pip install scikit-learn nolearn
+  *cd ~*
+  *sudo pip install scikit-learn nolearn*
   
 7. Install cudamat
-  git clone https://github.com/cudamat/cudamat
-  cd cudamat
-  pip install --user .
+  *git clone https://github.com/cudamat/cudamat*
+  *cd cudamat*
+  *pip install --user .*
   
 8. Install theano
-  sudo pip install -r https://raw.githubusercontent.com/Lasagne/Lasagne/master/requirements.txt
+  *sudo pip install -r https://raw.githubusercontent.com/Lasagne/Lasagne/master/requirements.txt*
 
 9. Configure Theano - Right now if you run python and import theano it will not use GPU. In order to use GPU we need to configure theanorc
   Create file ~/.theanorc and copy
   
-  [global]
-  floatX = float32
-  device = gpu0
+  *[global]*
+  *floatX = float32*
+  *device = gpu0*
   
-  [nvcc]
-  fastmath = True
-
+  *[nvcc]*
+  *fastmath = True*
 10. Verify if GPU is used. Open Python and import theano, if GPU is being used it will print the GPU information.
 
 
 ### Install Lasagne and skimage
 1. Intall Lasagne 
-  sudo pip install Lasagne==0.1
-  sudo apt-get update
-  sudo pip install scikit-learn
-  sudo apt-get install python-matplotlib
-  sudo pip install scikit-image
+  *sudo pip install Lasagne==0.1*
+  *sudo apt-get update*
+  *sudo pip install scikit-learn*
+  *sudo apt-get install python-matplotlib*
+  *sudo pip install scikit-image*
 
 2. Install Cudadnn after making an account at nvidia
   https://developer.nvidia.com/cudnn
@@ -113,30 +112,30 @@ https://aws.amazon.com/console/
   3. Now there are 2 options either download file to your local machine and then upload to S3 and download from S3 and run next commands or to download directly to the ec2 machine follow the steps in Download dataset from kaggle (next section long term helpful ) and use the cookies.txt generated in the cudnn download link page
   4. copy cookies.txt (on nvdia link page ) to the ec2 machine and run
     
-    mkdir data
-    wget -x --load-cookies cookies.txt -P data -nH --cut-dirs=5 https://developer.nvidia.com/rdp/assets/cudnn-70-linux-x64-v40
-    cd data
-    mv cudnn-70-linux-x64-v40 cudnn-70-linux-x64-v40.tar.gz
-    tar -xvzf cudnn-70-linux-x64-v40.tar.gz
-    CUDA_ROOT=`find /usr/local/ -type d -name "cuda-[0-9]\.[0-9]" -print`
-    cd cuda/include/
-    sudo cp `ls *.h` "$CUDA_ROOT"/include/
-    cd ../lib64/
-    sudo cp `ls *`  "$CUDA_ROOT"/lib64/
-    export LD_LIBRARY_PATH=${CUDA_ROOT}/lib64:${LD_LIBRARY_PATH} 
-    export PATH=${CUDA_ROOT}/bin:${PATH}  
+    *mkdir data*
+    *wget -x --load-cookies cookies.txt -P data -nH --cut-dirs=5 https://developer.nvidia.com/rdp/assets/cudnn-70-linux-x64-v40*
+    *cd data*
+    *mv cudnn-70-linux-x64-v40 cudnn-70-linux-x64-v40.tar.gz*
+    *tar -xvzf cudnn-70-linux-x64-v40.tar.gz*
+    *CUDA_ROOT=`find /usr/local/ -type d -name "cuda-[0-9]\.[0-9]" -print`*
+    *cd cuda/include/*
+    *sudo cp `ls *.h` "$CUDA_ROOT"/include/*
+    *cd ../lib64/*
+    *sudo cp `ls *`  "$CUDA_ROOT"/lib64/*
+    *export LD_LIBRARY_PATH=${CUDA_ROOT}/lib64:${LD_LIBRARY_PATH}*
+    *export PATH=${CUDA_ROOT}/bin:${PATH}*
   
   5. For faster use in future upload cudnn-70-linux-x64-v40.tar.gz to S3 bucket and retrieve from there to use.
   6. At times when lasagne gives some error, one of the three commands solves the purpose
-    sudo pip install -r https://raw.githubusercontent.com/dnouri/kfkd-tutorial/master/requirements.txt
-    sudo pip install -r https://raw.githubusercontent.com/dnouri/nolearn/master/requirements.txt
-    sudo pip install -r https://raw.githubusercontent.com/Lasagne/Lasagne/master/requirements.txt
+    *sudo pip install -r https://raw.githubusercontent.com/dnouri/kfkd-tutorial/master/requirements.txt*
+    *sudo pip install -r https://raw.githubusercontent.com/dnouri/nolearn/master/requirements.txt*
+    *sudo pip install -r https://raw.githubusercontent.com/Lasagne/Lasagne/master/requirements.txt*
 
 ### Download Dataset from Kaggle
 Steps :-
 1. Export your cookies from your browser, when you are  logged in at kaggle and put your cookies.txt on your server. Then run:
   mkdir data
-  wget -x --load-cookies cookies.txt -P data -nH --cut-dirs=5 http://www.kaggle.com/c/dogs-vs-cats/download/test1.zip
+  *wget -x --load-cookies cookies.txt -P data -nH --cut-dirs=5 http://www.kaggle.com/c/dogs-vs-cats/download/test1.zip*
   
 ## S3 Setup for persistent storage
 Use S3 to temporarily save your models when using Spot Instances
@@ -149,8 +148,8 @@ Use S3 to temporarily save your models when using Spot Instances
   Read How to Retrieve Root Access Keys (first one)
   http://www.cloudberrylab.com/blog/how-to-find-your-aws-access-key-id-and-secret-access-key-and-register-with-cloudberry-s3-explorer/
 3. On on your ec2 instance, Install awscli and configure it
-  sudo apt-get install awscli
-  aws configure
+  *sudo apt-get install awscli*
+  *aws configure*
   
   Configure will ask 4 questions
   AWS Access Key ID [None]: AKIAIOSFODNN7EXAMPLE
