@@ -169,8 +169,8 @@ Use S3 to temporarily save your models when using Spot Instances<br />
   **aws s3 cp TestTransfer s3://apoorvfirstbucket/DeepLearning/SpatialTransformerNetwork/CatDog/TestTransfer --recursive**<br />
   
   ####Create a test file<br />
-  **vim test.txt<br />
-  **aws s3 cp test.txt s3://apoorvfirstbucket/DeepLearning/SpatialTransformerNetwork/CatDog/test.txt **<br />
+  **vim test.txt**<br />
+  **aws s3 cp test.txt s3://apoorvfirstbucket/DeepLearning/SpatialTransformerNetwork/CatDog/test.txt**<br />
 
 5. Retrieve from file/folder from S3<br />
   **aws s3 cp s3://apoorvfirstbucket/DeepLearning/SpatialTransformerNetwork/CatDog/TestTransfer TestTransfer --recursive**<br />
