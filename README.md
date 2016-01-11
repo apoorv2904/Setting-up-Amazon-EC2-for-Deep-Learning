@@ -28,7 +28,9 @@ Alternatively you can select from community AMI to select a Machine with pre-ins
 6. Press Next and Enter your bidding price based on the history suggested. At the time of writing this current price is around $0.07/hour so I am going to bid $0.1/hour to have a safety margin.
 7. Press Review and Launch. Press Launch. You will come to a screen where it will ask for a Key-Pair. If you are using it for the first time, then please create a new key-pair and make sure you keep it safely. If lost it cannot be retrieved later on.
 8. If on Linux use this command to connect to EC2 instance<br />
-  **ssh -i EC2KeyPair.pem ubuntu@[your instance ip address]**<br />
+  ```
+  **ssh -i EC2KeyPair.pem ubuntu@[your instance ip address]**
+  ```
   If on windows use putty to connect to the instance. The instructions can be found here.<br />
   http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/putty.html<br />
   In nutshell, do the following.<br />
