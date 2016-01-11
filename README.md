@@ -32,7 +32,7 @@ __This is what will appear if you check the instance after launching an EC2-inst
 
   ![alt text](https://github.com/apoorv2904/Setting-up-Amazon-EC2-for-Deep-Learning/blob/master/images/1.png)
   
-  
+
 8. If on Linux use this command to connect to EC2 instance<br />
 
   ```
@@ -49,6 +49,8 @@ __This is what will appear if you check the instance after launching an EC2-inst
   5. In host enter ubuntu@DNSname. This can be seen by cliking the instance in AWS services and copying Public DNS column
   6. Now SSH -> Auth Tab and browse private key. and press open. You will be connected to the Amazon EC2 Server
 
+![alt text](https://github.com/apoorv2904/Setting-up-Amazon-EC2-for-Deep-Learning/blob/master/images/2a.png)
+  
 ### Installing Theano and other libraries.
 1. Run these commands to install basic libraries<br />
 
@@ -94,6 +96,8 @@ __This is what will appear if you check the instance after launching an EC2-inst
   
 5. Verify Cuda is working. In the commands set right version for cuda. Here it was 7.5<br />
   
+![alt text](https://github.com/apoorv2904/Setting-up-Amazon-EC2-for-Deep-Learning/blob/master/images/4.png)
+  
   ```
   cuda-install-samples-7.5.sh  ~
   cd ~/NVIDIA_CUDA-7.5_Samples
@@ -101,7 +105,10 @@ __This is what will appear if you check the instance after launching an EC2-inst
   make
   ./deviceQuery
   ```
+__The output of device query will detect the GPU available and print Test pass__
 
+![alt text](https://github.com/apoorv2904/Setting-up-Amazon-EC2-for-Deep-Learning/blob/master/images/5.png)
+  
 6. Go to home folder and install sklearn and nolearn<br />
   
   ```
@@ -134,7 +141,8 @@ __This is what will appear if you check the instance after launching an EC2-inst
   
 10. Verify if GPU is used. Open Python and import theano, if GPU is being used it will print the GPU information.<br />
 
-
+![alt text](https://github.com/apoorv2904/Setting-up-Amazon-EC2-for-Deep-Learning/blob/master/images/6.png)
+  
 ### Install Lasagne and skimage
 1. Intall Lasagne <br />
   
@@ -167,6 +175,9 @@ __This is what will appear if you check the instance after launching an EC2-inst
     export LD_LIBRARY_PATH=${CUDA_ROOT}/lib64:${LD_LIBRARY_PATH}
     export PATH=${CUDA_ROOT}/bin:${PATH}
     ```
+    
+    ![alt text](https://github.com/apoorv2904/Setting-up-Amazon-EC2-for-Deep-Learning/blob/master/images/8.png)
+  
     
   5. For faster use in future upload cudnn-70-linux-x64-v40.tar.gz to S3 bucket and retrieve from there to use.
   6. At times when lasagne gives some error, one of the three commands solves the purpose<br />
