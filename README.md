@@ -28,9 +28,8 @@ Alternatively you can select from community AMI to select a Machine with pre-ins
 6. Press Next and Enter your bidding price based on the history suggested. At the time of writing this current price is around $0.07/hour so I am going to bid $0.1/hour to have a safety margin.
 7. Press Review and Launch. Press Launch. You will come to a screen where it will ask for a Key-Pair. If you are using it for the first time, then please create a new key-pair and make sure you keep it safely. If lost it cannot be retrieved later on.
 8. If on Linux use this command to connect to EC2 instance<br />
-  ```
-  **ssh -i EC2KeyPair.pem ubuntu@[your instance ip address]**
-  ```
+
+  **ssh -i EC2KeyPair.pem ubuntu@[your instance ip address]**<br />
   If on windows use putty to connect to the instance. The instructions can be found here.<br />
   http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/putty.html<br />
   In nutshell, do the following.<br />
@@ -43,20 +42,18 @@ Alternatively you can select from community AMI to select a Machine with pre-ins
 
 ### Installing Theano and other libraries.
 1. Run these commands to install basic libraries<br />
-  ```
   **sudo apt-get update**<br />
   **sudo apt-get -y dist-upgrade**<br />
   **sudo apt-get install -y gcc g++ gfortran build-essential git wget linux-image-generic libopenblas-dev python-dev python-pip python-nose python-numpy python-scipy**<br />
   **sudo apt-get install -y liblapack-dev**<br />
   **sudo apt-get install -y libblas-dev**<br />
-  ```
 2. Install Cuda by running these commands.**THIS IS THE MOST TIME CONSUMING STEP- USE COMMUNITY AMI TO AVOID THIS (Steps at last - USING PREINSTALLED AMI)** Install latest cuda- cuda-repo-ubuntu1404_7.5-18_amd64.deb ( This is cuda 7.5)<br />
-  ```
+  
   **wget http://developer.download.nvidia.com/compute/cuda/repos/ubuntu1404/x86_64/cuda-repo-ubuntu1404_7.5-18_amd64.deb**<br />
   **sudo dpkg -i cuda-repo-ubuntu1404_7.5-18_amd64.deb**<br />
   **sudo apt-get update**<br />
   **sudo apt-get install cuda**<br />
-  ```
+  
 3. Reboot and reconnect<br />
   **sudo reboot**<br />
   
