@@ -41,18 +41,20 @@ Alternatively you can select from community AMI to select a Machine with pre-ins
 
 ### Installing Theano and other libraries.
 1. Run these commands to install basic libraries<br />
+  ```
   **sudo apt-get update**<br />
   **sudo apt-get -y dist-upgrade**<br />
   **sudo apt-get install -y gcc g++ gfortran build-essential git wget linux-image-generic libopenblas-dev python-dev python-pip python-nose python-numpy python-scipy**<br />
   **sudo apt-get install -y liblapack-dev**<br />
   **sudo apt-get install -y libblas-dev**<br />
-
+  ```
 2. Install Cuda by running these commands.**THIS IS THE MOST TIME CONSUMING STEP- USE COMMUNITY AMI TO AVOID THIS (Steps at last - USING PREINSTALLED AMI)** Install latest cuda- cuda-repo-ubuntu1404_7.5-18_amd64.deb ( This is cuda 7.5)<br />
+  ```
   **wget http://developer.download.nvidia.com/compute/cuda/repos/ubuntu1404/x86_64/cuda-repo-ubuntu1404_7.5-18_amd64.deb**<br />
   **sudo dpkg -i cuda-repo-ubuntu1404_7.5-18_amd64.deb**<br />
   **sudo apt-get update**<br />
   **sudo apt-get install cuda**<br />
-
+  ```
 3. Reboot and reconnect<br />
   **sudo reboot**<br />
   
