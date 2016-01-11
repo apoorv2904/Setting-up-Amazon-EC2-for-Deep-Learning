@@ -26,14 +26,19 @@ Alternatively you can select from community AMI to select a Machine with pre-ins
 4. Choose an AMI. To show a complete setup, I will go with AMI Ubuntu Server 14.04 LTS (HVM), SSD Volume Type. ( I will recommend you to try out complete installation once. Later you can go with the AMI I have mentioned.)
 5. From the available options go GPU g2.2xlarge instance. (This will cost you money. Small amount :) )
 6. Press Next and Enter your bidding price based on the history suggested. At the time of writing this current price is around $0.07/hour so I am going to bid $0.1/hour to have a safety margin.
-7. Press Review and Launch. Press Launch. You will come to a screen where it will ask for a Key-Pair. If you are using it for the first time, then please create a new key-pair and make sure you keep it safely. If lost it cannot be retrieved later on.
+7. Press Review and Launch. Press Launch. You will come to a screen where it will ask for a Key-Pair. If you are using it for the first time, then please create a new key-pair and make sure you keep it safely. If lost it cannot be retrieved later on.<br />
+
+__This is what will appear if you check the instance after launching an EC2-instance__
+
+  ![alt text](https://github.com/apoorv2904/Setting-up-Amazon-EC2-for-Deep-Learning/blob/master/images/1.png)
+  
+  
 8. If on Linux use this command to connect to EC2 instance<br />
 
   ```
   ssh -i EC2KeyPair.pem ubuntu@[your instance ip address]
   ```
-  This is what will appear if you check the instance after launching an EC2-instance
-  ![alt text](https://github.com/apoorv2904/Setting-up-Amazon-EC2-for-Deep-Learning/blob/master/images/1.png)
+
   If on windows use putty to connect to the instance. The instructions can be found here.<br />
   http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/putty.html<br />
   In nutshell, do the following.<br />
