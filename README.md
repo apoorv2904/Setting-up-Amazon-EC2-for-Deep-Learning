@@ -32,7 +32,8 @@ Alternatively you can select from community AMI to select a Machine with pre-ins
   ```
   ssh -i EC2KeyPair.pem ubuntu@[your instance ip address]
   ```
-  
+  This is what will appear if you check the instance after launching an EC2-instance
+  ![alt text](https://github.com/apoorv2904/Setting-up-Amazon-EC2-for-Deep-Learning/blob/master/images/1.png)
   If on windows use putty to connect to the instance. The instructions can be found here.<br />
   http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/putty.html<br />
   In nutshell, do the following.<br />
