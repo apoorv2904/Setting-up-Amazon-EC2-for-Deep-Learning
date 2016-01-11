@@ -26,13 +26,19 @@ Alternatively you can select from community AMI to select a Machine with pre-ins
 4. Choose an AMI. To show a complete setup, I will go with AMI Ubuntu Server 14.04 LTS (HVM), SSD Volume Type. ( I will recommend you to try out complete installation once. Later you can go with the AMI I have mentioned.)
 5. From the available options go GPU g2.2xlarge instance. (This will cost you money. Small amount :) )
 6. Press Next and Enter your bidding price based on the history suggested. At the time of writing this current price is around $0.07/hour so I am going to bid $0.1/hour to have a safety margin.
-7. Press Review and Launch. Press Launch. You will come to a screen where it will ask for a Key-Pair. If you are using it for the first time, then please create a new key-pair and make sure you keep it safely. If lost it cannot be retrieved later on.
+7. Press Review and Launch. Press Launch. You will come to a screen where it will ask for a Key-Pair. If you are using it for the first time, then please create a new key-pair and make sure you keep it safely. If lost it cannot be retrieved later on.<br />
+
+__This is what will appear if you check the instance after launching an EC2-instance__
+
+  ![alt text](https://github.com/apoorv2904/Setting-up-Amazon-EC2-for-Deep-Learning/blob/master/images/1.png)
+  
+
 8. If on Linux use this command to connect to EC2 instance<br />
 
   ```
   ssh -i EC2KeyPair.pem ubuntu@[your instance ip address]
   ```
-  
+
   If on windows use putty to connect to the instance. The instructions can be found here.<br />
   http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/putty.html<br />
   In nutshell, do the following.<br />
@@ -43,6 +49,8 @@ Alternatively you can select from community AMI to select a Machine with pre-ins
   5. In host enter ubuntu@DNSname. This can be seen by cliking the instance in AWS services and copying Public DNS column
   6. Now SSH -> Auth Tab and browse private key. and press open. You will be connected to the Amazon EC2 Server
 
+![alt text](https://github.com/apoorv2904/Setting-up-Amazon-EC2-for-Deep-Learning/blob/master/images/2a.png)
+  
 ### Installing Theano and other libraries.
 1. Run these commands to install basic libraries<br />
 
@@ -88,6 +96,8 @@ Alternatively you can select from community AMI to select a Machine with pre-ins
   
 5. Verify Cuda is working. In the commands set right version for cuda. Here it was 7.5<br />
   
+![alt text](https://github.com/apoorv2904/Setting-up-Amazon-EC2-for-Deep-Learning/blob/master/images/4.png)
+  
   ```
   cuda-install-samples-7.5.sh  ~
   cd ~/NVIDIA_CUDA-7.5_Samples
@@ -95,7 +105,10 @@ Alternatively you can select from community AMI to select a Machine with pre-ins
   make
   ./deviceQuery
   ```
+__The output of device query will detect the GPU available and print Test pass__
 
+![alt text](https://github.com/apoorv2904/Setting-up-Amazon-EC2-for-Deep-Learning/blob/master/images/5.png)
+  
 6. Go to home folder and install sklearn and nolearn<br />
   
   ```
@@ -128,7 +141,8 @@ Alternatively you can select from community AMI to select a Machine with pre-ins
   
 10. Verify if GPU is used. Open Python and import theano, if GPU is being used it will print the GPU information.<br />
 
-
+![alt text](https://github.com/apoorv2904/Setting-up-Amazon-EC2-for-Deep-Learning/blob/master/images/6.png)
+  
 ### Install Lasagne and skimage
 1. Intall Lasagne <br />
   
@@ -161,6 +175,9 @@ Alternatively you can select from community AMI to select a Machine with pre-ins
     export LD_LIBRARY_PATH=${CUDA_ROOT}/lib64:${LD_LIBRARY_PATH}
     export PATH=${CUDA_ROOT}/bin:${PATH}
     ```
+    
+    ![alt text](https://github.com/apoorv2904/Setting-up-Amazon-EC2-for-Deep-Learning/blob/master/images/8.png)
+  
     
   5. For faster use in future upload cudnn-70-linux-x64-v40.tar.gz to S3 bucket and retrieve from there to use.
   6. At times when lasagne gives some error, one of the three commands solves the purpose<br />
